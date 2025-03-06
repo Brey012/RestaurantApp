@@ -12,10 +12,13 @@ public class User {
     @Column(name = "id_user")
     private long id;
 
-    @Column(length = 100, unique = true, nullable = false)
+    @Column(name = "name_user", length = 100, nullable = false)
     private String name;
+    @Column(name = "email_user", length = 100, nullable = false)
     private String email;
+    @Column(name = "password_user", length = 100, nullable = false)
     private String password;
+    @Column(name = "user_type", length = 100, nullable = false)
     private EnumUser userType;
 
     public User() {
