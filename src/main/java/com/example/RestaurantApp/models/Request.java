@@ -1,6 +1,7 @@
 package com.example.RestaurantApp.models;
 
 import com.example.RestaurantApp.Enums.EnumRequest;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 import java.util.Date;
@@ -11,8 +12,11 @@ public class Request {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_request;
-    private Long id_user;
-    private Long id_product;
+
+    @ManyToOne
+    @JsonBackReference
+    @JoinColumn(name = "fk_user", referencedColumnName = "id_user")
+    private  User user;
 
     @Column(name = "request_type", length = 100, nullable = false)
     private EnumRequest request;
@@ -26,10 +30,9 @@ public class Request {
     public Request() {
     }
 
-    public Request(Long id_request, Long id_user, Long id_product, EnumRequest request, String status, String date_request, String total) {
+    public Request(Long id_request, EnumRequest request, String status, String date_request, String total) {
         this.id_request = id_request;
-        this.id_user = id_user;
-        this.id_product = id_product;
+
         this.request = request;
         this.status = status;
         this.date_request = date_request;
@@ -42,22 +45,6 @@ public class Request {
 
     public void setId_request(Long id_request) {
         this.id_request = id_request;
-    }
-
-    public Long getId_user() {
-        return id_user;
-    }
-
-    public void setId_user(Long id_user) {
-        this.id_user = id_user;
-    }
-
-    public Long getId_product() {
-        return id_product;
-    }
-
-    public void setId_product(Long id_product) {
-        this.id_product = id_product;
     }
 
     public EnumRequest getRequest() {

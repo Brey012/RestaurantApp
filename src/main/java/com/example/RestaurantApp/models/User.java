@@ -1,7 +1,10 @@
 package com.example.RestaurantApp.models;
 
 import com.example.RestaurantApp.Enums.EnumUser;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 @Table(name = "User_table")
@@ -20,6 +23,16 @@ public class User {
     private String password;
     @Column(name = "user_type", length = 100, nullable = false)
     private EnumUser userType;
+
+    @OneToMany(mappedBy = "user")
+    @JsonManagedReference
+    private List<Address> directions;
+
+
+    @OneToMany(mappedBy = "user")
+    @JsonManagedReference
+    private List<Request> requests;
+
 
     public User() {
     }

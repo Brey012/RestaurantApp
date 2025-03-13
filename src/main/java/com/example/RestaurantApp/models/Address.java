@@ -1,5 +1,6 @@
 package com.example.RestaurantApp.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 @Entity
@@ -8,6 +9,8 @@ public class Address {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_address;
+
+
     private Long id_user;
     @Column(name = "street_address", length = 100, nullable = false)
     private String street;
@@ -17,6 +20,13 @@ public class Address {
     private String code_postal;
     @Column(name = "country_address", length = 100, nullable = false)
     private String country;
+
+    //Bucle de serialización
+
+    @ManyToOne
+    @JoinColumn(name = "fk_user", referencedColumnName = "id_user")
+    @JsonBackReference
+    private  User user;
 
     public Address() {
     }
